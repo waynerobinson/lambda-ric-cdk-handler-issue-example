@@ -4,12 +4,10 @@ import { Construct } from 'constructs';
 import * as path from "node:path";
 
 export class LambdaRicCdkIssueStack extends cdk.Stack {
-  testFn: lambda.IFunction;
-
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    this.testFn = new lambda.DockerImageFunction(this, `TestFunction`, {
+    new lambda.DockerImageFunction(this, `TestFunction`, {
       functionName: "lambda-ric-cdk-issue-test",
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, "../ruby_lambda")),
       timeout: cdk.Duration.seconds(29),
