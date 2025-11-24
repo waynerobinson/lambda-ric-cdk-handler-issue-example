@@ -1,14 +1,18 @@
-# Welcome to your CDK TypeScript project
+## aws_lambda_ric/CDK Overwritten _HANDLER Example
 
-This is a blank project for CDK development with TypeScript.
+When using aws_lambda_ric with cdk initialization fails because the _HANDLER environment variable appears to be reserved by Lambda and it's being overwritten by a blank string (not set to nil, so not failing on that check).
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+I've created an example project demonstrating this at https://github.com/waynerobinson/lambda-ric-cdk-handler-issue-example
 
-## Useful commands
+Our current project patches aws_lambda_ric to rename _HANDLER to _RIC_HANDLER in aws_lambda_ric.rb, which appears to be working OK, but unsure as to whether that's the best way to fix this in this core library.
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+
+### Reproduction Steps
+
+```bash
+git checkout https://github.com/waynerobinson/lambda-ric-cdk-handler-issue-example
+cd lambda-ric-cdk-handler-issue-example
+npm install
+cdk deploy
+aws lambda invoke --function-name lambda-ric-cdk-issue-test /dev/stdout
+```
