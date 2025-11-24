@@ -1,0 +1,16 @@
+# Ignore all logfiles and tempfiles.
+/log/development.log.*
+/log/*.log
+/tmp
+*.trace
+
+.DS_Store
+*.swo
+*.swp
+
+.rbenv-version
+
+# Ignore RubyMine
+/.idea
+
+/.vscode/*.log
